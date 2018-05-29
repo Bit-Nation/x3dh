@@ -26,7 +26,9 @@ If you find a security bug / vulnerability please DO NOT open an issue. Write to
 ## Install
 
 ```
+go get github.com/Bit-Nation/x3dh
 ```
+It might make sense to chose a dependency manager of your choise to pin the version to a specific commit.
 
 ## Usage
 
