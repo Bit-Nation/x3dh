@@ -18,7 +18,7 @@ TODO: Fill out this long description.
 - [License](#license)
 
 ## Security
-If you find a security bug / vulnerability please DO NOT open an issue. Write to security@bitnation.co PLEASE use this PGP key to encrypt your report / email.
+If you find a security bug / vulnerability please DO NOT open an issue. Write to security@bitnation.co PLEASE use [this](security-bitnation.co.key.pub) PGP key to encrypt your report / email.
 
 ## Install
 
