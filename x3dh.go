@@ -10,7 +10,7 @@ import (
 // returned in case the pre key bundle signature is invalid
 var PreKeyBundleInvalidSignature = errors.New("the signature of the received pre key bundle is invalid")
 
-type State struct {
+type ProtocolInitialisation struct {
 	RemoteIdKey        PublicKey
 	RemoteEphemeralKey PublicKey
 	MyOneTimePreKey    *PrivateKey
@@ -126,7 +126,7 @@ func (x *X3dh) CalculateSecret(b PreKeyBundle) (SharedSecret, PublicKey, error) 
 }
 
 // calculate secret based on received on data from initial message
-func (x *X3dh) SecretFromRemote(c State) (SharedSecret, error) {
+func (x *X3dh) SecretFromRemote(c ProtocolInitialisation) (SharedSecret, error) {
 
 	// first step with our signed pre key
 	// and the remote id key

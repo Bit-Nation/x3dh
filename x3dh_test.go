@@ -36,7 +36,7 @@ func TestX3dh_CalculateSecretNoOneTimePreKey(t *testing.T) {
 	require.Nil(t, err)
 
 	bobX := New(c, sha256.New(), testProtocolName, bobIdKeyPair)
-	secretBob, err := bobX.SecretFromRemote(State{
+	secretBob, err := bobX.SecretFromRemote(ProtocolInitialisation{
 		RemoteIdKey:        aliceIdKeyPair.PublicKey,
 		RemoteEphemeralKey: aliceEphemeralKey,
 		MySignedPreKey:     bobSignedPreKey.PrivateKey,
