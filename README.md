@@ -33,9 +33,20 @@ It might make sense to chose a dependency manager of your choise to pin the vers
 ## Usage
 
 ```
+// create an instance of the curve util
+c := &Curve25519{}
+
+// make sure ot save this somewhere
+myKeyPair, err := c.GenerateKeyPair()
+
+x := x3dh.New(c, sha256.New(), "test", myKeyPair)
+
 ```
 
 ## API
+The following methods are available:
+- `CalculateSecret` calculate a secret based on your Idkey and a received PreKeyBundle.
+- `SecretFromRemote` create a secret based on the received intial data.
 
 ## Maintainers
 
