@@ -3,9 +3,12 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![Build Status](https://semaphoreci.com/api/v1/florianlenz/x3dh/branches/master/badge.svg)](https://semaphoreci.com/florianlenz/x3dh)
 
-> key agreement protocol
+> An x3dh implementation.
 
-TODO: Fill out this long description.
+This is an almost complete implementation of the [x3dh](https://signal.org/docs/specifications/x3dh/) key agreement protocol.
+
+- signature check must be done manually. `Alice verifies the prekey signature and aborts the protocol if verification fails. Alice then generates an ephemeral key pair with public key EKA.`
+
 
 ## Table of Contents
 
