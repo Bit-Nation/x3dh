@@ -7,7 +7,7 @@
 
 This is an almost complete implementation of the [x3dh](https://signal.org/docs/specifications/x3dh/) key agreement protocol. However, there are a few things that you need to take care of yourself:
 1. If you fetch a preKeyBundle (holds information about the person you would like to chat with, like the identity key, etc) you have to check the signature yourself. It's not built into the code. We only "ask you" IF the key is valid. You can then say yes/no. If you say no, the protocol will be aborted.
-2. You are responsible for handling the intital message (and the encoding), we only give you the calculated secret + the ephemeral key generated during the protocol run.
+2. You are responsible for handling the initial message (and the encoding), we only give you the calculated secret + the ephemeral key generated during the protocol run.
 3. Currently we only support curve25519 (but you can implement the `Curve` interface in order to use another curve).
 
 ## Table of Contents
