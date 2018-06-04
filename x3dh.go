@@ -17,6 +17,13 @@ type ProtocolInitialisation struct {
 	MySignedPreKey     PrivateKey
 }
 
+type InitializedProtocol struct {
+	SharedSecret      SharedSecret
+	UsedOneTimePreKey *PublicKey
+	UsedSignedPreKey  PublicKey
+	EphemeralKey      PublicKey
+}
+
 // create a new X3dh key agreement protocol
 // info is just your protocol name. Something like ("pangea")
 // myIDKey is your curve25519 key pair
@@ -65,17 +72,17 @@ func (x *X3dh) NewKeyPair() (KeyPair, error) {
 }
 
 // calculate a shared secret based on a received preKeyBundle
-func (x *X3dh) CalculateSecret(b PreKeyBundle) (SharedSecret, PublicKey, error) {
+func (x *X3dh) CalculateSecret(b PreKeyBundle) (InitializedProtocol, error) {
 
 	// verify that the signature of the pre key bundle is valid
 	if !b.ValidSignature() {
-		return [32]byte{}, PublicKey{}, PreKeyBundleInvalidSignature
+		return InitializedProtocol{}, PreKeyBundleInvalidSignature
 	}
 
 	// create ephemeral key
 	ephemeralKey, err := x.curve.GenerateKeyPair()
 	if err != nil {
-		return [32]byte{}, PublicKey{}, err
+		return InitializedProtocol{}, err
 	}
 
 	// first step with our identity private key
@@ -121,7 +128,12 @@ func (x *X3dh) CalculateSecret(b PreKeyBundle) (SharedSecret, PublicKey, error) 
 
 	s, err := x.kdf(km)
 
-	return s, ephemeralKey.PublicKey, err
+	return InitializedProtocol{
+		SharedSecret:      s,
+		UsedOneTimePreKey: b.OneTimePreKey(),
+		UsedSignedPreKey:  b.SignedPreKey(),
+		EphemeralKey:      ephemeralKey.PublicKey,
+	}, err
 
 }
 

@@ -1,14 +1,19 @@
 package x3dh
 
 import (
-	"crypto/rand"
 	"golang.org/x/crypto/curve25519"
+	"io"
 )
 
-// for better testing (easy to "mock")
-var cr = rand.Read
+type Curve25519 struct {
+	randSource io.Reader
+}
 
-type Curve25519 struct{}
+func NewCurve25519(randSource io.Reader) Curve25519 {
+	return Curve25519{
+		randSource: randSource,
+	}
+}
 
 // calculate a diffie hellman key exchange
 // with given key pair
@@ -45,7 +50,7 @@ func (c *Curve25519) GenerateKeyPair() (KeyPair, error) {
 	var priv [32]byte
 
 	// fill private key
-	_, err := cr(priv[:])
+	_, err := c.randSource.Read(priv[:])
 	if err != nil {
 		return KeyPair{}, err
 	}

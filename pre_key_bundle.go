@@ -7,7 +7,6 @@ package x3dh
 type PreKeyBundle interface {
 	IdentityKey() PublicKey
 	SignedPreKey() PublicKey
-	PreKeySignature() []byte
 	OneTimePreKey() *PublicKey
 	// this is actually the method in which
 	// you need to check if the signature
@@ -33,10 +32,6 @@ func (b TestPreKeyBundle) IdentityKey() PublicKey {
 
 func (b TestPreKeyBundle) SignedPreKey() PublicKey {
 	return b.signedPreKey
-}
-
-func (b TestPreKeyBundle) PreKeySignature() []byte {
-	return b.preKeySignature
 }
 
 func (b TestPreKeyBundle) OneTimePreKey() *PublicKey {
