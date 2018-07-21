@@ -75,7 +75,11 @@ func (x *X3dh) NewKeyPair() (KeyPair, error) {
 func (x *X3dh) CalculateSecret(b PreKeyBundle) (InitializedProtocol, error) {
 
 	// verify that the signature of the pre key bundle is valid
-	if !b.ValidSignature() {
+	valid, err := b.ValidSignature()
+	if err != nil {
+		return InitializedProtocol{}, err
+	}
+	if !valid {
 		return InitializedProtocol{}, PreKeyBundleInvalidSignature
 	}
 

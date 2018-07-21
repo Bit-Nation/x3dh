@@ -1,11 +1,10 @@
 package x3dh
 
 import (
-	"crypto/sha256"
 	"crypto/rand"
+	"crypto/sha256"
 	"testing"
 
-	
 	require "github.com/stretchr/testify/require"
 )
 
@@ -30,7 +29,9 @@ func TestX3dh_CalculateSecretNoOneTimePreKey(t *testing.T) {
 
 	// calculate secret with bob's pre key bundle
 	initializedProtocol, err := aliceX.CalculateSecret(TestPreKeyBundle{
-		validSignature:  true,
+		validSignature: func() (bool, error) {
+			return true, nil
+		},
 		identityKey:     bobIdKeyPair.PublicKey,
 		signedPreKey:    bobSignedPreKey.PublicKey,
 		preKeySignature: []byte(""),
@@ -61,7 +62,9 @@ func TestX3dh_CalculateSecretInvalidSignature(t *testing.T) {
 
 	// since we set the signature to invalid an error should be returned
 	_, err = aliceX.CalculateSecret(TestPreKeyBundle{
-		validSignature: false,
+		validSignature: func() (bool, error) {
+			return false, nil
+		},
 	})
 	require.EqualError(t, err, PreKeyBundleInvalidSignature.Error())
 

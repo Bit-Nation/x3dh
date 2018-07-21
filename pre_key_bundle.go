@@ -14,7 +14,7 @@ type PreKeyBundle interface {
 	// TO DO this your self. In case this
 	// method returns false the process of
 	// creating an shared secret will be aborted.
-	ValidSignature() bool
+	ValidSignature() (bool, error)
 }
 
 // ONLY FOR TESTING
@@ -23,7 +23,7 @@ type TestPreKeyBundle struct {
 	signedPreKey    PublicKey
 	preKeySignature []byte
 	oneTimePreKey   *PublicKey
-	validSignature  bool
+	validSignature  func() (bool, error)
 }
 
 func (b TestPreKeyBundle) IdentityKey() PublicKey {
@@ -38,6 +38,6 @@ func (b TestPreKeyBundle) OneTimePreKey() *PublicKey {
 	return b.oneTimePreKey
 }
 
-func (b TestPreKeyBundle) ValidSignature() bool {
-	return b.validSignature
+func (b TestPreKeyBundle) ValidSignature() (bool, error) {
+	return b.validSignature()
 }
